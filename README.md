@@ -15,32 +15,76 @@ As a DevOps Engineer, I designed and implemented the CI/CD pipeline for this pro
 - Ensuring best practices for security, scalability, and maintainability.
 - Writing clear documentation for developers and operators.
 
----
-
-## Features
-- React 18 with Vite for fast development
-- Unit testing with Vitest
-- Dockerized for easy deployment
-- Jenkins pipeline for CI/CD and DockerHub push
 
 ---
 
-## Getting Started (Local Development)
+## 📑 Table of Contents
 
-1. Clone the repository:
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Getting Started](#getting-started)
+- [Docker Integration](#docker-integration)
+- [Jenkins CI/CD Pipeline](#jenkins-cicd-pipeline)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [Author](#author)
+- [License](#license)
+
+---
+
+## 📝 About the Project
+
+This project demonstrates a full-stack workflow for modern web development, including:
+
+- Fast React development with Vite
+- Automated testing and builds
+- Containerization with Docker
+- Automated CI/CD with Jenkins
+
+---
+
+## 🚀 Features
+
+- ⚡ React 18 + Vite for lightning-fast development
+- 🧪 Unit testing with Vitest
+- 🐳 Dockerized for consistent deployments
+- 🔄 Jenkins pipeline for CI/CD and DockerHub push
+
+---
+
+## 🖼️ Screenshots
+
+### Jenkins CI/CD Pipeline
+
+![Jenkins Pipeline](src/assets/images/jenkins-pipeline.png)
+
+---
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- npm
+- Docker (for containerization)
+
+### Local Development
+
+1. **Clone the repository:**
 	```sh
 	git clone https://github.com/<your-username>/<your-repo-name>.git
 	cd <your-repo-name>
 	```
-2. Install dependencies:
+2. **Install dependencies:**
 	```sh
 	npm install
 	```
-3. Start the development server:
+3. **Start the development server:**
 	```sh
 	npm run dev
 	```
-4. Run tests:
+4. **Run tests:**
 	```sh
 	npm test
 	```
@@ -73,20 +117,25 @@ The Jenkins pipeline automates the following steps:
 5. **Docker push:** Pushes the image to DockerHub using secure Jenkins credentials.
 
 ### Jenkins Setup
+
 1. Add a Jenkins credential (type: Username with password) with ID `DockerHub` for DockerHub login.
 2. Ensure your Jenkins agent has Docker installed and access to DockerHub.
 3. Create a pipeline job pointing to this repository. Jenkins will automatically detect the `Jenkinsfile` and run the pipeline on each push.
 
 ---
 
-## Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+## 🧪 Testing
+
+Run all unit tests with:
+```sh
+npm test
+```
 
 ---
 
-## License
+## 🤝 Contributing
 
-Most scripts are released under the MIT License or as noted in the individual directories (see `Simple-Backup/LICENSE`).
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
 ---
 
@@ -94,9 +143,11 @@ Most scripts are released under the MIT License or as noted in the individual di
 
 **Belal Mahmoud** - DevOps Engineer
 
-- **GitHub**: [https://github.com/Belal2015](https://github.com/Belal2015)
-- **LinkedIn**: [https://www.linkedin.com/in/belal-mahmoud-devops/](https://www.linkedin.com/in/belal-mahmoud-devops/)
+- **GitHub**: [Belal2015](https://github.com/Belal2015)
+- **LinkedIn**: [belal-mahmoud-devops](https://www.linkedin.com/in/belal-mahmoud-devops/)
 - **Email**: belalmahmoud8183@gmail.com
+
+---
 
 ## 📜 License
 
@@ -105,3 +156,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ---
 
 > **Note:** This top-level README is intentionally high-level; consult each component's documentation for full details.
+
