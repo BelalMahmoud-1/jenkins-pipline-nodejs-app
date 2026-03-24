@@ -1,4 +1,4 @@
-﻿
+
 # simple-Nodejs-app
 
 A simple NodeJS application with Vite, Docker, and Jenkins CI/CD integration.
@@ -18,6 +18,7 @@ As a DevOps Engineer, I designed and implemented the CI/CD pipeline for this pro
 
 ---
 
+
 ## 📑 Table of Contents
 
 - [About the Project](#about-the-project)
@@ -25,6 +26,7 @@ As a DevOps Engineer, I designed and implemented the CI/CD pipeline for this pro
 - [Screenshots](#screenshots)
 - [Getting Started](#getting-started)
 - [Docker Integration](#docker-integration)
+- [Automating Jenkins Pipeline with Webhooks](#automating-jenkins-pipeline-with-webhooks)
 - [Jenkins CI/CD Pipeline](#jenkins-cicd-pipeline)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -33,7 +35,7 @@ As a DevOps Engineer, I designed and implemented the CI/CD pipeline for this pro
 
 ---
 
-## 📝 About the Project
+## About the Project
 
 This project demonstrates a full-stack workflow for modern web development, including:
 
@@ -44,7 +46,7 @@ This project demonstrates a full-stack workflow for modern web development, incl
 
 ---
 
-## 🚀 Features
+## Features
 
 - ⚡ React 18 + Vite for lightning-fast development
 - 🧪 Unit testing with Vitest
@@ -53,7 +55,7 @@ This project demonstrates a full-stack workflow for modern web development, incl
 
 ---
 
-## 🖼️ Screenshots
+## Screenshots
 
 ### Jenkins CI/CD Pipeline
 
@@ -61,7 +63,7 @@ This project demonstrates a full-stack workflow for modern web development, incl
 
 ---
 
-## 🏁 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -91,7 +93,7 @@ This project demonstrates a full-stack workflow for modern web development, incl
 
 ---
 
-## 🐳 Docker Integration
+## Docker Integration
 
 This app is fully containerized. The provided `Dockerfile` builds a production-ready image using multi-stage builds:
 
@@ -106,7 +108,31 @@ docker run -p 80:80 belalmahmoud81/react-app:latest
 
 ---
 
-## ⚙️ Jenkins CI/CD Pipeline
+
+## Automating Jenkins Pipeline with Webhooks
+
+To automate your Jenkins pipeline so it runs on every code push, set up a webhook in your Git hosting service (e.g., GitHub, GitLab, Bitbucket):
+
+1. **Go to your repository settings** on your Git hosting platform.
+2. **Find the Webhooks section** (usually under "Settings" > "Webhooks").
+3. **Add a new webhook** with the following details:
+	 - **Payload URL:**
+		 - Use your Jenkins server's Git webhook endpoint, typically:
+			 `http://<jenkins-server>:8080/github-webhook/` (for GitHub)
+			 or
+			 `http://<jenkins-server>:8080/gitlab-webhook/` (for GitLab)
+	 - **Content type:** `application/json`
+	 - **Events:** Choose "Just the push event" (or as needed).
+4. **Save the webhook.**
+
+**Jenkins Configuration:**
+- In your Jenkins job configuration, ensure "GitHub hook trigger for GITScm polling" (or the equivalent for your platform) is enabled.
+- Your Jenkins server must be accessible from your Git hosting service (publicly or via VPN/tunnel).
+
+Once set up, every push to your repository will automatically trigger the Jenkins pipeline defined in your `Jenkinsfile`.
+
+---
+## Jenkins CI/CD Pipeline
 
 The Jenkins pipeline automates the following steps:
 
@@ -124,7 +150,7 @@ The Jenkins pipeline automates the following steps:
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run all unit tests with:
 ```sh
@@ -133,13 +159,13 @@ npm test
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
 ---
 
-## 👤 Author
+## Author
 
 **Belal Mahmoud** - DevOps Engineer
 
@@ -149,7 +175,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
