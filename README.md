@@ -134,19 +134,39 @@ Once set up, every push to your repository will automatically trigger the Jenkin
 ---
 ## Jenkins CI/CD Pipeline
 
+
 The Jenkins pipeline automates the following steps:
 
 1. **Install dependencies:** Runs `npm install`.
 2. **Run tests:** Executes all unit tests to ensure code quality.
 3. **Build app:** Compiles the React app for production.
-4. **Docker build:** Builds a Docker image and tags it with the Jenkins build number and `latest`.
-5. **Docker push:** Pushes the image to DockerHub using secure Jenkins credentials.
+4. **Docker build:** Builds a Docker image and tags it with the Jenkins build number (`belalmahmoud81/react-app:<build_number>`) and `latest`.
+5. **Docker push:** Pushes both tags to DockerHub using secure Jenkins credentials.
+6. **Deploy:** Runs the Docker container from the `latest` image tag. (Note: The pipeline can be improved by stopping/removing any previous container before running a new one.)
+7. **Cleanup:** Removes local Docker images after deployment to free up disk space.
 
-### Jenkins Setup
+#### Jenkins Setup
 
-1. Add a Jenkins credential (type: Username with password) with ID `DockerHub` for DockerHub login.
+1. Add a Jenkins credential (type: Username with password) with ID `dockerhub` for DockerHub login (matches the Jenkinsfile).
 2. Ensure your Jenkins agent has Docker installed and access to DockerHub.
 3. Create a pipeline job pointing to this repository. Jenkins will automatically detect the `Jenkinsfile` and run the pipeline on each push.
+
+#### Notes on Deployment and Cleanup
+
+- The deploy stage runs the container with:
+	```sh
+	docker run -d -p 80:80 belalmahmoud81/react-app:latest
+	```
+	For production, consider stopping/removing any previous container before running a new one to avoid port conflicts:
+	```sh
+	docker rm -f react-app || true
+	docker run -d --name react-app -p 80:80 belalmahmoud81/react-app:latest
+	```
+- The cleanup stage removes the images tagged with the build number and `latest` to save disk space:
+	```sh
+	docker rmi belalmahmoud81/react-app:<build_number> || true
+	docker rmi belalmahmoud81/react-app:latest || true
+	```
 
 ---
 
