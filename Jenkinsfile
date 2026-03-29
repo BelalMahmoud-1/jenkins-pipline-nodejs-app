@@ -63,14 +63,27 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-            steps {
-                sh """
-                    docker rmi ${IMAGE_TAG} || true
-                """
-            }
-        }
+       stage('Cleanup') {
+    steps {
+        sh """
+            echo "🧹 Starting cleanup..."
+
+            # Remove current build image
+            docker rmi ${IMAGE_TAG} || true
+
+            # Remove dangling/untagged images only (safe)
+            docker image prune -f || true
+
+            # Remove build cache older than 24h to save disk space
+            docker builder prune --filter "until=24h" -f || true
+
+            echo "📊 Docker disk usage after cleanup:"
+            docker system df
+
+            echo "✅ Cleanup complete!"
+        """
     }
+}
 
     post {
         success {
