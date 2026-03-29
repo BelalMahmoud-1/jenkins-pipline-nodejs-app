@@ -3,25 +3,19 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-# Copy package files first to leverage caching
 COPY package*.json ./
 
-# Install dependencies (including devDependencies for Vite)
-RUN npm install
+RUN npm install --prefer-offline=false
 
-# Copy rest of the source code
 COPY . .
 
-# Build the project using npm (works even if Vite is not global)
-RUN npm run build
+RUN ./node_modules/.bin/vite build
+
 # Stage 2: Production
 FROM nginx:alpine
 
-# Copy build output
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 80
 EXPOSE 80
 
-# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
