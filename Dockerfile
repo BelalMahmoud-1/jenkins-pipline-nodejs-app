@@ -12,9 +12,8 @@ RUN npm install
 # Copy rest of the source code
 COPY . .
 
-# Build the project using npx (works even if Vite is not global)
-RUN npx vite build
-
+# Build the project using npm (works even if Vite is not global)
+RUN npm run build
 # Stage 2: Production
 FROM nginx:alpine
 
