@@ -86,13 +86,20 @@ pipeline {
 }
 
     post {
-        success {
-            echo "✅ Pipeline succeeded! Image pushed: ${IMAGE_TAG}"
+     success {
+            slackSend(
+                channel: '#ci-cd',
+                color: 'good',
+                message: "✅ Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+            )
         }
         failure {
-            echo "❌ Pipeline failed. Check console: ${BUILD_URL}console"
+            slackSend(
+                channel: '#ci-cd',
+                color: 'danger',
+                message: "❌ Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${env.BUILD_URL}"
+            )
         }
-        always {
             // ✅ Fixed: Vite outputs to dist/ not build/
             archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
             cleanWs()
